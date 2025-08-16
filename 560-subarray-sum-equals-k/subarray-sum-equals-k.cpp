@@ -17,9 +17,9 @@ public:
         if(map.find(val)!=map.end()){
             count+=map[val];
         }
-    //   if(map.find(val) == map.end()){
-    //     map[p[j]] = 0;
-    //   }
+      if(map.find(p[j]) == map.end()){
+       map[p[j]] = 0;
+      }
      map[p[j]]++;
       }
       return count;
