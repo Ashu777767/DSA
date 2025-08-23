@@ -10,7 +10,7 @@ public:
         }
 
         vector<vector<string>> result;
-        for (auto &p : mp) {
+        for (auto p : mp) {
             result.push_back(p.second);
         }
         return result;
