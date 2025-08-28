@@ -14,10 +14,10 @@ public:
          ListNode* dummy = new ListNode(0,head);
          ListNode* slow = dummy;
          ListNode* fast = dummy;
-         for(int i = 0;i<n;i++){
+         for(int i = 0;i<=n;i++){
             fast = fast->next;
          }
-         while(fast!= NULL && fast->next != NULL){
+         while(fast!= NULL){
             fast = fast->next;
             slow = slow->next;
          }
