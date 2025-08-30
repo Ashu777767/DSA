@@ -8,53 +8,49 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
+        // Edge case: if list is empty or k == 1 → no change
         if (!head || k == 1) return head;
 
+        // Dummy node → helps in handling head reversals cleanly
         ListNode* dummy = new ListNode(0, head);
-        ListNode* leftpre = dummy;
-        ListNode* temp = head;
 
-        ListNode* counterk = head; // counting node
-        int count = 0;
+        // Pointers for traversal
+        ListNode* leftpre = dummy;   // Node before the current group
+        ListNode* temp = head;       // Current node iterator
 
-        while (counterk != NULL) {
-            count++;
-            // When k nodes completed → reverse
-            if (count == k) {
-                // Reverse k nodes starting from temp
-                ListNode* subhead = temp;
-                ListNode* prev = NULL;
-                ListNode* curr = temp;
-                ListNode* Next = NULL;
-
-                for (int i = 0; i < k; i++) {
-                    Next = curr->next;
-                    curr->next = prev;
-                    prev = curr;
-                    curr = Next;
-                }
-
-                // reconnect
-                leftpre->next = prev;
-                subhead->next = curr;
-
-                // move pointers
-                leftpre = subhead;
-                temp = curr;  // new start for next group
-
-                // FIX \U0001f511 → keep counterk in sync with temp
-                if (!temp) return dummy->next;  
-                counterk = temp;  
-                count = 0;
-                continue; // skip the counterk++ below, we already moved
+        while (true) {
+            // Step 1: Check if k nodes exist from 'temp'
+            ListNode* check = temp;
+            for (int i = 0; i < k; i++) {
+                if (!check) return dummy->next;  // Less than k nodes left → done
+                check = check->next;
             }
 
-            counterk = counterk->next;
+            // Step 2: Reverse k nodes
+            ListNode* subhead = temp; // Start node of the group (will become tail after reversal)
+            ListNode* prev = NULL;
+            ListNode* curr = temp;
+            ListNode* Next = NULL;
+
+            for (int i = 0; i < k; i++) {
+                Next = curr->next;   // Save next node
+                curr->next = prev;   // Reverse link
+                prev = curr;         // Move prev forward
+                curr = Next;         // Move curr forward
+            }
+
+            // Step 3: Reconnect reversed part with previous and next groups
+            leftpre->next = prev;    // Connect previous part to new head of this group
+            subhead->next = curr;    // Connect tail of reversed group to remaining list
+
+            // Step 4: Move pointers for next iteration
+            leftpre = subhead;       // New "previous" becomes the old head
+            temp = curr;             // Continue from next group
         }
 
-        return dummy->next;
     }
 };
