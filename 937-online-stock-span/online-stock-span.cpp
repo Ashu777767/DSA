@@ -2,7 +2,9 @@ class StockSpanner {
 public:
    stack<pair<int,int>>s;
     StockSpanner() {
-        
+         
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
     }
     
     int next(int price) {
