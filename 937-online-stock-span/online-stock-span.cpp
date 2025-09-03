@@ -7,16 +7,13 @@ public:
     
     int next(int price) {
         int span = 1;
-        while(true){
-            if(s.empty() || s.top().first>price){
-                s.push({price,span});
-                return span;
-            }
-            else{
+           while(!s.empty() && s.top().first<=price){
                 span+=(s.top().second);
                 s.pop();
-            }
-        }
+           }
+                s.push({price,span});
+                return span;
+            
     }
 };
 
