@@ -2,7 +2,7 @@ class Solution {
 public:
   Solution() {
         ios::sync_with_stdio(false);
-        cin.tie(nullptr);
+        cin.tie(nullptr);              //trick to beat 100%
     }
 
     vector<int> dailyTemperatures(vector<int>& temperatures) {
