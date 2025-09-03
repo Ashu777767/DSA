@@ -11,7 +11,7 @@ public:
                 span+=(s.top().second);
                 s.pop();
            }
-                s.push({price,span});
+                s.emplace(price,span);   //directy pushed the original not the copy
                 return span;
             
     }
