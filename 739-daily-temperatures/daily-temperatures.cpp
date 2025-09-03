@@ -1,5 +1,10 @@
 class Solution {
 public:
+  Solution() {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+    }
+
     vector<int> dailyTemperatures(vector<int>& temperatures) {
         int len = temperatures.size();
         vector<int>ans(len,0);
