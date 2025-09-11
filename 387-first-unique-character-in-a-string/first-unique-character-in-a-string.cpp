@@ -2,13 +2,20 @@ class Solution {
 public:
     int firstUniqChar(string s) {
         unordered_map<char,int>map;
-        for(char ch:s) map[ch]++;  //0(n)
-
-        for(int i = 0;i<s.size();i++){  //0(n)
-            if(map[s[i]] == 1){
-                return i;
+        queue<int>q;
+        for(int i = 0;i<s.size();i++){
+            if(map.find(s[i]) == map.end()){
+                q.push(i);
             }
+            map[s[i]]++;
+            while(q.size()>0 && map[s[q.front()]]>1){
+                 q.pop();
+            }
+
         }
-        return -1;
+
+        return q.empty()?-1:q.front();
+
+        
     }
 };
