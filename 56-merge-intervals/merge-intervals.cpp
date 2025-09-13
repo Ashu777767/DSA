@@ -7,20 +7,12 @@ public:
         for(int i = 0;i<n;i++){
             int start = intervals[i][0];
             int end = intervals[i][1];
-            if(!ans.empty() && start<=ans.back()[1]){
-                continue;
-            }
-            for(int j = i+1;j<n;j++){
-                if(intervals[j][0] <=end){
-                    end = (intervals[j][1]>end)?intervals[j][1]:end;
-
-                }
-                else{
-                    break;
-                }
-
-            }
+            if(ans.empty() || ans.back()[1]<start){   //naya interval mila hai non overlapping 
             ans.push_back({start,end});
+            }
+            else if(ans.back()[1]>=start){
+                ans.back()[1] = max(ans.back()[1],end);
+            }
         }
         return ans;
     }
