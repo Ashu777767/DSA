@@ -1,17 +1,24 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
+        if(s.size() == 0){
+            return 0;
+        }
+        int maxLen = INT_MIN;
+        int n = s.size();    //substring longest so sliding window
         int left = 0;
-        int maxValue = 0;
-        unordered_map<char,int>maps;
-        for(int i = 0;i<s.size();i++){
-            maps[s[i]]++;
-            while(maps[s[i]]>1){
-                maps[s[left]]--;
+        unordered_map<char,int>map;
+        for(int r = 0;r<n;r++){
+            
+            //if duplicate found
+            while(map[s[r]]>0){
+                map[s[left]]--;
                 left++;
             }
-          maxValue = max(maxValue,(i-left)+1);
+            map[s[r]]++;
+            maxLen = max(maxLen,(r-left+1));
         }
-        return maxValue;
+
+        return maxLen;
     }
 };
