@@ -1,20 +1,19 @@
 class MyCircularQueue {
 public:
-     vector<int>arr;
-    int currSize,cap;
-    int f;
-    int r;
-    MyCircularQueue(int k) {   //constructor
-         cap = k;
-        arr.resize(cap);
+   int f,r;
+   int cap,currSize;
+   int *arr; 
+    MyCircularQueue(int k) {
+        arr = new int[k];
+        cap = k;
         currSize = 0;
         f = 0;
         r = -1;
     }
     
     bool enQueue(int value) {
-        if(isFull()){   //edge case
-            return false;
+        if(currSize == cap){
+        return false;
         }
         r = (r+1)%cap;
         arr[r] = value;
@@ -23,7 +22,8 @@ public:
     }
     
     bool deQueue() {
-        if(isEmpty()){
+        if(currSize == 0)
+        {
             return false;
         }
         f = (f+1)%cap;
@@ -32,16 +32,14 @@ public:
     }
     
     int Front() {
-        if(isEmpty())
-        {
+        if(currSize == 0){
             return -1;
         }
         return arr[f];
     }
     
     int Rear() {
-         if(isEmpty())
-        {
+         if(currSize == 0){
             return -1;
         }
         return arr[r];
