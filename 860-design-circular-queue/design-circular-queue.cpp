@@ -10,7 +10,9 @@ public:
         f = 0;
         r = -1;
     }
-    
+     ~MyCircularQueue() {
+        delete[] arr;
+    }
     bool enQueue(int value) {
         if(currSize == cap){
         return false;
