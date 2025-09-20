@@ -4,11 +4,11 @@ public:
     int n = nums.size();
 	vector<int>rightSuff(n);
 	rightSuff[n-1] = nums[n-1];
-	for(int i = n-2;i>=0;i--){
+	for(int i = n-2;i>=0;i--){      //make a suffix array of the given array
 	    rightSuff[i] = rightSuff[i+1]*nums[i];
 	}
    vector<int>ans;
-   int left = 1;
+   int left = 1;  //left product
    for(int i = 0;i<n-1;i++)
    {
        int val = left*rightSuff[i+1];
