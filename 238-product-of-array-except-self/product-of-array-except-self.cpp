@@ -2,24 +2,16 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
         int n = nums.size();
-        vector<int>ans;
-        for(auto val:nums){
-            ans.push_back(val);
+        vector<int>ans(n);
+        ans[0] = 1;
+        for(int i = 1;i<n;i++){
+            ans[i] = ans[i-1]*nums[i-1];  //har index pai uske phele index tak ki left multiple store hoti hai [1,1,2,6];
         }
-        nums[n-1] = ans[n-1];
-	for(int i = n-2;i>=0;i--){ //make a suffix array of the   given array
-	    nums[i] = nums[i+1]*ans[i];
-	}
-    int left = 1;  //left product
-   for(int i = 0;i<n-1;i++)
-   {
-       int val = left*nums[i+1];
-       left*=ans[i];
-       ans[i] = val;
-   }
-    ans[n-1] = left;
-      
-      return ans;
-        
+        int right = 1;
+        for(int i = n-1;i>=0;i--){
+            ans[i]*= right;
+            right*=nums[i];  //abb har index pai ans mai left product upto its previous hai and usko ham abb right se multiply karte hai right ke values ke sath of particular index which provides the answer of product for each index;
+        }
+        return ans;
     }
 };
