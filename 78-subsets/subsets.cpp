@@ -5,10 +5,14 @@ void solveans(vector<int> nums, vector<vector<int>> &ans,int index,vector<int>ou
         ans.push_back(output);
         return ;
     }
-    //exclude
-    solveans(nums,ans,index+1,output);
+
+   
     //include
     output.push_back(nums[index]);
+    solveans(nums,ans,index+1,output);
+
+     //exclude
+     output.pop_back();
     solveans(nums,ans,index+1,output);
 
 }
