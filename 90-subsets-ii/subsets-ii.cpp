@@ -14,7 +14,7 @@ void solveans(vector<int> nums, vector<vector<int>> &ans,int index,vector<int>ou
      //exclude
      output.pop_back();
      int idx = index+1;
-     while(idx<nums.size() && nums[idx] == nums[idx-1]){
+     while(idx<nums.size() && nums[idx] == nums[idx-1]){    //this is the main skkiping case
         idx++;
      }
     solveans(nums,ans,idx,output);
