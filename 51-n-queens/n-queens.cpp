@@ -2,11 +2,11 @@ class Solution {
 public:
  bool isSafe(int row,int n,vector<string> &board,int col)
  {
-    for(int i = 0;i<n;i++){ //check the particular row
-         if(board[row][i] == 'Q'){
-            return false;
-         }
-    }
+    // for(int i = 0;i<n;i++){ //check the particular row
+    //      if(board[row][i] == 'Q'){
+    //         return false;
+    //      }
+    // }
     for(int i = 0;i<n;i++)
     {
         if(board[i][col] == 'Q'){   //checking the particular column
@@ -41,6 +41,7 @@ public:
             placeNqueens(board,ans,n,row+1);
             board[row][col] = '.';   //undo step for invalid position check during backtracking
         }
+    
     }
 
    }
