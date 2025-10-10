@@ -29,17 +29,16 @@ bool isSafe(int row,int n,vector<string> &board,int col)
    return true;
  }
 
-void placeNqueens( vector<string>& board,vector<vector<string>>& ans,int n,int row,int &count)
+void placeNqueens( vector<string>& board,int n,int row,int &count)
    {
      if(row>=n){
-        ans.push_back({board});
         count++;
         return ;
      }
     for(int col = 0;col<n;col++){
         if(isSafe(row,n,board,col)){
             board[row][col] = 'Q';    //do 
-            placeNqueens(board,ans,n,row+1,count);
+            placeNqueens(board,n,row+1,count);
             board[row][col] = '.';   //undo step for invalid position check during backtracking
         }
     
@@ -48,10 +47,9 @@ void placeNqueens( vector<string>& board,vector<vector<string>>& ans,int n,int r
    }
     int totalNQueens(int n) {
         vector<string>board(n,string(n,'.'));
-        vector<vector<string>>ans;
         int row = 0;
         int count = 0;
-        placeNqueens(board,ans,n,row,count);
+        placeNqueens(board,n,row,count);
         return count;
     }
 };
