@@ -28,17 +28,17 @@ bool isSafe(vector<vector<char>>& board,int row,int col,char dig)
 }
 bool helper(vector<vector<char>>& board,int row ,int col)
 {
-    if(row == 9)
+    if(row == 9)   //means suduko completed
     {
         return true;
     }
-    int nextrow = row,nextcol = col+1;
+    int nextrow = row,nextcol = col+1;  //for same row
     if(col == 9){
-        nextrow = row+1;
+        nextrow = row+1;   //for nextrow
         nextcol  = 0;
     }
     if(board[row][col] != '.'){
-      return helper(board,nextrow,nextcol);
+      return helper(board,nextrow,nextcol);  //if next values are already given then we need true right
     }
     for(char dig = '1';dig<='9';dig++){
         if(isSafe(board,row,col,dig)){
