@@ -1,31 +1,31 @@
 class Solution {
 public:
-void solveans(vector<int> nums, vector<vector<int>> &ans,int index,vector<int>output){
-    if(index>=nums.size()){
-        ans.push_back(output);
+ void findsubsets(vector<int>& nums, vector<vector<int>>& ans,vector<int>& result,int idx)
+ {
+    if(idx >= nums.size()) //base case
+    {
+        ans.push_back({result});  //O(2^n)
         return ;
     }
-
-   
     //include
-    output.push_back(nums[index]);
-    solveans(nums,ans,index+1,output);
-
-     //exclude
-     output.pop_back();
-     int idx = index+1;
-     while(idx<nums.size() && nums[idx] == nums[idx-1]){    //this is the main skkiping case
+    result.push_back(nums[idx]);
+    findsubsets(nums,ans,result,idx+1);
+    //exclude
+    result.pop_back();
+    idx++;
+    while(idx<nums.size() && nums[idx-1] == nums[idx]){  //check for duplicate
         idx++;
-     }
-    solveans(nums,ans,idx,output);
+    }
+    findsubsets(nums,ans,result,idx);
 
-}
+ }
+
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
         sort(nums.begin(),nums.end());
-        vector<vector<int>>ans;//powerset
-        vector<int>output;
-        int index = 0;
-        solveans(nums,ans,index,output);
-     return ans;
+        vector<vector<int>>ans;
+        vector<int>result;
+        int idx = 0;
+        findsubsets(nums,ans,result,idx);
+        return ans;
     }
 };
