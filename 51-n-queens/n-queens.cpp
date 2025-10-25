@@ -5,7 +5,7 @@ public:
     // for(int i = 0;i<n;i++){ //check the particular row
     //      if(board[row][i] == 'Q'){
     //         return false;
-    //      }
+    //      }       //we acutally don't need to check this row cause we place one q in one row
     // }
     for(int i = 0;i<n;i++)
     {
