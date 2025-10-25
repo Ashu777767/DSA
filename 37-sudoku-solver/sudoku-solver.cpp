@@ -38,7 +38,7 @@ bool helper(vector<vector<char>>& board,int row ,int col)
         nextcol  = 0;
     }
     if(board[row][col] != '.'){
-      return helper(board,nextrow,nextcol);  //if next values are already given then we need true right
+     return helper(board,nextrow,nextcol);  //if next values are already given then we need true right
     }
     for(char dig = '1';dig<='9';dig++){
         if(isSafe(board,row,col,dig)){
