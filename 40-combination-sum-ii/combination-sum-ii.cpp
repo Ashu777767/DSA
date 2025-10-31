@@ -1,27 +1,30 @@
 class Solution {
 public:
-    void backtrack(vector<int>& arr, int target, int idx, vector<int>& combi, vector<vector<int>>& ans) {
-        if(target == 0) {
+    void getAllcombinations(vector<int>& arr, int target, int idx, vector<vector<int>>& ans, vector<int>& combi) {
+        if (target == 0) {
             ans.push_back(combi);
             return;
         }
-        if(target < 0 || idx == arr.size()) return;
+        if (target < 0 || idx == arr.size())
+            return;
 
-        for(int i = idx; i < arr.size(); i++) {
-            // skip duplicates at the same recursive level
-            if(i > idx && arr[i] == arr[i-1]) continue;
+        // Include current element
+        combi.push_back(arr[idx]);
+        getAllcombinations(arr, target - arr[idx], idx + 1, ans, combi);
+        combi.pop_back();
 
-            combi.push_back(arr[i]);
-            backtrack(arr, target - arr[i], i + 1, combi, ans); // move to next index (use each element once)
-            combi.pop_back();
-        }
+        // Skip duplicates at the same level
+        while (idx + 1 < arr.size() && arr[idx] == arr[idx + 1]) idx++;
+
+        // Exclude current element
+        getAllcombinations(arr, target, idx + 1, ans, combi);
     }
 
-    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        sort(candidates.begin(), candidates.end());
+    vector<vector<int>> combinationSum2(vector<int>& arr, int target) {
+        sort(arr.begin(), arr.end());
         vector<vector<int>> ans;
         vector<int> combi;
-        backtrack(candidates, target, 0, combi, ans);
+        getAllcombinations(arr, target, 0, ans, combi);
         return ans;
     }
 };
