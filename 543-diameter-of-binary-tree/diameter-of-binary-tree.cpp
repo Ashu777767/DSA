@@ -23,7 +23,7 @@ public:
 
     return max(leftH,rightH)+1;
   }
-    int diameterOfBinaryTree(TreeNode* root) {   //O(n*n) not optimal
+    int diameterOfBinaryTree(TreeNode* root) {   //O(n) not optimal
         
         height(root);
         return ans;
