@@ -23,7 +23,7 @@ public:
         if(leftTree && RightTree){  //LCA found cause both p and q found
             return root;
         }
-        if(leftTree){
+        else if(leftTree){
             return leftTree;
         }
         else{
