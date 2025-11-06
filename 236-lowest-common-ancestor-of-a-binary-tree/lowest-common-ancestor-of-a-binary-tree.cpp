@@ -15,7 +15,7 @@ public:
             return NULL;
 
         }
-        if(root == p || root == q){
+        if(root->val == p->val || root->val == q->val){
         return root; //LCA
         }
         TreeNode* leftTree = lowestCommonAncestor(root->left,p,q);
