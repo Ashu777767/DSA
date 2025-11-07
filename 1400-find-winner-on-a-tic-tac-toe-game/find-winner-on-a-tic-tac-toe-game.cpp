@@ -1,6 +1,6 @@
 class Solution {
 public:
-bool checkwinner(vector<vector<char>>grid,int r,int c,char letter){
+bool checkwinner(vector<vector<char>>& grid,int r,int c,char letter){
     //row check
     if(grid[r][0] == letter && grid[r][1] == letter && grid[r][2] == letter)
     {
@@ -11,11 +11,11 @@ bool checkwinner(vector<vector<char>>grid,int r,int c,char letter){
             return true;
 
         // main diagonal
-        if (r == c && grid[0][0] == letter && grid[1][1] == letter && grid[2][2] == letter)
+        if ( grid[0][0] == letter && grid[1][1] == letter && grid[2][2] == letter)
             return true;
 
         // anti diagonal
-        if (r + c == 2 && grid[0][2] == letter && grid[1][1] == letter && grid[2][0] == letter)
+        if ( grid[0][2] == letter && grid[1][1] == letter && grid[2][0] == letter)
             return true;
 
             return false;
@@ -31,7 +31,7 @@ bool checkwinner(vector<vector<char>>grid,int r,int c,char letter){
             if(checkwinner(grid,r,c,letter)){
                 return (letter == 'X')?"A":"B";
             }
-            letter = (letter == 'X')?'0':'X';
+            letter = (letter == 'X')?'O':'X';
 
         }
         if(moves.size() == 9) return "Draw";
