@@ -15,12 +15,13 @@ void findpaths(TreeNode* root,string path,vector<string>& ans)
 {
     if(root == NULL) return ;
     path+= to_string(root->val);
-    findpaths(root->left,path+"->",ans);
-   findpaths(root->right,path+"->",ans);
-    if(root->left == NULL && root->right == NULL){
+     if(root->left == NULL && root->right == NULL){
         ans.push_back(path);
         
     }
+    findpaths(root->left,path+"->",ans);
+   findpaths(root->right,path+"->",ans);
+   
     return ;
 }
 
