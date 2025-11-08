@@ -25,7 +25,7 @@ public:
      if(left>right) return NULL;
 
       TreeNode* root = new TreeNode(preorder[idx]);
-      int inIdx = mp[preorder[idx]];
+      int inIdx = mp[preorder[idx]];  //better t.c
       idx++;
       root->left = helper(preorder,inorder,idx,left,inIdx-1,mp);
       root->right = helper(preorder,inorder,idx,inIdx+1,right,mp);
