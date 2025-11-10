@@ -11,18 +11,30 @@
  */
 class Solution {
 public:
-void forminorder(vector<int>& ans,TreeNode* root){
-    if(root == NULL) return ;
-    forminorder(ans,root->left);
-    ans.push_back(root->val);
-    forminorder(ans,root->right);
-
-}
-
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int>ans;
-        forminorder(ans,root);
+        TreeNode* curr = root;
+        while(curr != NULL){
+            if(curr->left == NULL){
+                ans.push_back(curr->val);
+                curr = curr->right;
+            }
+            else{
+                TreeNode* IP = curr->left;
+                while(IP->right != NULL && IP->right != curr){
+                    IP = IP->right;
+                }
+                if(IP->right == NULL){
+                    IP->right = curr; //create thread
+                    curr = curr->left;
+                }
+                else{
+                   IP->right = NULL;//delete thread
+                   ans.push_back(curr->val);
+                   curr = curr->right;
+                }
+            }
+        }
         return ans;
-
     }
 };
