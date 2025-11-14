@@ -11,25 +11,36 @@
  */
 class Solution {
 public:
-    int cnt = 0;
-    int ans  = -1;
-    bool found = false;
-    void helper(TreeNode* root){
-        if(root == NULL) return ;
-        helper(root->left);
-        if(found) return ;
-        if(cnt == 1){
-        ans = root->val;
-        found = true;
-        return;
-        }
-        cnt--;
-        helper(root->right);
-    }
-    int kthSmallest(TreeNode* root, int k) {
-        cnt = k;
-        helper(root);
-        return ans;
+    int prevOrder = 0;
 
+    int kthSmallest(TreeNode* root, int k) {
+        // Base case: if node is NULL, return -1
+        // if(root == NULL) {
+        //     return -1;
+        // }
+
+        // Check the left subtree first
+        if(root->left != NULL) {
+            int leftAns = kthSmallest(root->left, k);
+            if(leftAns != -1) {
+                return leftAns;
+            }
+        }
+
+        // Process the current root node
+        if(prevOrder + 1 == k) {
+            return root->val;
+        }
+        prevOrder++;
+
+        // Process the right subtree
+        if(root->right != NULL) {
+            int rightAns = kthSmallest(root->right, k);
+            if(rightAns != -1) {
+                return rightAns;
+            }
+        }
+
+        return -1;
     }
 };
