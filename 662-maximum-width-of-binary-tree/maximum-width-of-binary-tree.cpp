@@ -15,24 +15,24 @@ public:
         int maximum = 0;
         queue<pair<TreeNode*,unsigned long long>>q;
         q.push({root,0});
-        int idx;
-        while(q.size()>0)
-        {
-            idx = 0;
+        while(!q.empty()){
             int n = q.size();
-            unsigned long long  stIdx = q.front().second;
-            unsigned long long endIdx = q.back().second;
-            maximum = max(maximum,(int)(endIdx-stIdx+1));//formula for width
-            for(int  i = 0;i<n;i++)
-            {
-                auto currNode = q.front();
+            unsigned long long startIdx = q.front().second;
+           unsigned long long endIdx = q.back().second;
+            maximum = max(maximum,(int)(endIdx-startIdx+1));
+            while(n--){
+                auto curr = q.front();
                 q.pop();
-                if(currNode.first->left) q.push({currNode.first->left,2*currNode.second+1}); //CBT indexing for left node forumula
-                if(currNode.first->right)q.push({currNode.first->right,2*currNode.second+2});
-
+                if(curr.first->left){
+                    q.push({curr.first->left,2*curr.second+1});
+                }
+                if(curr.first->right){
+                     q.push({curr.first->right,2*curr.second+2});
+                }
+     
             }
 
         }
-        return  maximum;
+       return maximum;
     }
 };
