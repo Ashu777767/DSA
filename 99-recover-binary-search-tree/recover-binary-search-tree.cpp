@@ -16,12 +16,10 @@ void correct(TreeNode* &root,int data1,int data2)
   if(root == NULL)
   return ;
 
-  if(root->val == data1){
-    root->val = data2;
+  if(root->val == data1 || root->val == data2){
+    root->val = (root->val == data1)?data2:data1;
   }
-  else if(root->val == data2){
-    root->val = data1;
-  }
+  
   correct(root->left,data1,data2);
   correct(root->right,data1,data2);
 }
