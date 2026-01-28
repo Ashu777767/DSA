@@ -1,24 +1,24 @@
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-        int n = nums.size();
-        vector<int>prefix(n);
-        int count = 0;
-        prefix[0] = nums[0];
-        for(int i = 1;i<n;i++){
-           prefix[i] = prefix[i-1]+nums[i];
+      int n  = nums.size();
+      int count = 0;
+      vector<int>prefix(n);
+      prefix[0] = nums[0];
+      for(int i = 1;i<n;i++){
+        prefix[i] = prefix[i-1]+nums[i];
+      }
+      unordered_map<int,int>mp;
+      for(int i = 0;i<n;i++){
+        int val = prefix[i] - k;
+        if(prefix[i] == k){
+           count++;
         }
-        unordered_map<int,int>mp;
-        for(int r = 0;r<n;r++){
-            if(prefix[r] == k){
-                count++;
-            }
-            int val = prefix[r] - k;   //to get left part
-            if(mp.find(val) != mp.end()){
-                count+=mp[val];
-            }
-            mp[prefix[r]]++;
+        if(mp.find(val)!= mp.end()){
+            count+=mp[val];
         }
-        return count;
+        mp[prefix[i]]++;
+      }
+      return count;
     }
 };
