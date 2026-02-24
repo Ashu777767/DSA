@@ -1,34 +1,37 @@
 class Solution {
 public:
     int largestRectangleArea(vector<int>& heights) {
-        vector<int>right(heights.size(),0);
-        vector<int>left(heights.size(),0);
-        stack<int>s;
-        //for right
-        for(int i = heights.size()-1;i>=0;i--){
-            while(!s.empty() && heights[s.top()]>=heights[i]){
+           int n = heights.size();
+        vector<int> right(n), left(n);
+        stack<int> s;
+
+        // NSR
+        for (int i = n - 1; i >= 0; i--) {
+            while (!s.empty() && heights[s.top()] >= heights[i]) {
                 s.pop();
             }
-           right[i] = s.empty()?heights.size():s.top() ;
-            s.push(i);  //we store only index;
-        }
-        //for left
-        while(!s.empty()){
-            s.pop();
-        }
-        for(int i = 0;i<heights.size();i++){
-             while(!s.empty() && heights[s.top()]>=heights[i]){
-                s.pop();
-            }
-            left[i] = s.empty()?-1:s.top();
+            right[i] = s.empty() ? n : s.top();
             s.push(i);
         }
-        int ans = INT_MIN;
-        for(int i = 0;i<heights.size();i++){
-            int width =  (right[i]-left[i]-1);
-            int height = heights[i];
-            ans =  max(ans,(height*width));
+
+        while (!s.empty()) s.pop();
+
+        // NSL
+        for (int i = 0; i < n; i++) {
+            while (!s.empty() && heights[s.top()] >= heights[i]) {
+                s.pop();
+            }
+            left[i] = s.empty() ? -1 : s.top();
+            s.push(i);
+        }
+
+        // Calculate max area
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            int width = right[i] - left[i] - 1;
+            ans = max(ans, heights[i] * width);
         }
         return ans;
+
     }
 };
