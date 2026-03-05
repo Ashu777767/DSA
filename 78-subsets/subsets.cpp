@@ -1,26 +1,22 @@
 class Solution {
 public:
- void findsubsets(vector<int>& nums, vector<vector<int>>& ans,vector<int>& result,int idx)
- {
-    if(idx >= nums.size()) //base case
-    {
-        ans.push_back({result});
+  void printsubset(int idx,vector<vector<int>>& ans,vector<int>& curr,vector<int>& nums){
+    if(idx == nums.size()){
+        ans.push_back(curr);
         return ;
     }
-    //include
-    result.push_back(nums[idx]);
-    findsubsets(nums,ans,result,idx+1);
-    //exclude
-    result.pop_back();
-    findsubsets(nums,ans,result,idx+1);
+    curr.push_back(nums[idx]);//recurion d0
+    printsubset(idx+1,ans,curr,nums);
+    //undo backtrack
+    curr.pop_back();
+    printsubset(idx+1,ans,curr,nums);
 
- }
-
+  }
     vector<vector<int>> subsets(vector<int>& nums) {
         vector<vector<int>>ans;
-        vector<int>result;
-        int idx = 0;
-        findsubsets(nums,ans,result,idx);
+        vector<int>curr;
+        printsubset(0,ans,curr,nums);
         return ans;
+
     }
 };
