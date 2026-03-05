@@ -1,31 +1,20 @@
 class Solution {
 public:
- void findsubsets(vector<int>& nums, vector<vector<int>>& ans,vector<int>& result,int idx)
- {
-    if(idx >= nums.size()) //base case
-    {
-        ans.push_back({result});  //O(2^n)
-        return ;
+    void solve(int idx, vector<int>& nums, vector<int>& curr, vector<vector<int>>& ans) {
+        ans.push_back(curr);
+        for (int i = idx; i < nums.size(); i++) {
+            if (i > idx && nums[i] == nums[i - 1]) continue; // skip duplicates
+            curr.push_back(nums[i]);
+            solve(i + 1, nums, curr, ans);
+            curr.pop_back();
+        }
     }
-    //include
-    result.push_back(nums[idx]);
-    findsubsets(nums,ans,result,idx+1);
-    //exclude
-    result.pop_back();
-    idx++;
-    while(idx<nums.size() && nums[idx-1] == nums[idx]){  //check for duplicate
-        idx++;
-    }
-    findsubsets(nums,ans,result,idx);
-
- }
 
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        vector<vector<int>>ans;
-        vector<int>result;
-        int idx = 0;
-        findsubsets(nums,ans,result,idx);
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        vector<int> curr;
+        solve(0, nums, curr, ans);
         return ans;
     }
 };
