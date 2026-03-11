@@ -11,25 +11,19 @@
  */
 class Solution {
 public:
-bool check(TreeNode* root, TreeNode* subRoot){
-    if(root == NULL || subRoot == NULL){
-        return root == subRoot; //if both null returns true if either one null returns false
+     bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(p == NULL && q == NULL) return true;
+        if(p == NULL || q == NULL) return false;
+        if(p->val!=q->val) return false;
+        bool lefttree = isSameTree(p->left,q->left);
+        bool righttree = isSameTree(p->right,q->right);
+        return (lefttree && righttree);
     }
-    bool leftn = check(root->left,subRoot->left);
-    bool rightn = check(root->right,subRoot->right);
-     
-    return leftn && rightn && (root->val == subRoot->val);  //returns true if left right and root are same
-}
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
         if(root == NULL) return false;
-        if(root->val == subRoot->val){
-             if(check(root,subRoot))return true;
+        if(root->val == subRoot->val && isSameTree(root,subRoot)){
+            return true;
         }
-
-    bool leftnode = isSubtree(root->left,subRoot);
-    bool rightnode = isSubtree(root->right,subRoot);
-        
-        return leftnode || rightnode;
-        
+        return isSubtree(root->left,subRoot) || isSubtree(root->right,subRoot);
     }
 };
