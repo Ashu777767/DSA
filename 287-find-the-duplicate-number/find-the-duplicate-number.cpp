@@ -1,13 +1,19 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        unordered_map<int,int>mp;
-        for(int i = 0;i<nums.size();i++){
-            if(mp.find(nums[i]) != mp.end()){
-                   return nums[i];
-            }
-            mp[nums[i]]++;
+        int n = nums.size();
+        int slow = 0,fast = 0;
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+        while(slow!=fast){        //agar notie karega to saare values 1 to n ki range mai honge which means har value ek index bhi hosakta hai which means likedlist ki tarah point kar raha hai har value jisss hame idea haya for floyod alogorithm
+        slow = nums[slow];
+        fast = nums[nums[fast]];
         }
-        return 0;
+        slow = 0;
+        while(slow != fast){
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        return slow;
     }
 };
