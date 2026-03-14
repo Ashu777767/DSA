@@ -11,24 +11,19 @@
  */
 class Solution {
 public:
-void findpaths(TreeNode* root,string path,vector<string>& ans)
-{
-    if(root == NULL) return ;
+bool helper(TreeNode* root,vector<string> &ans,string path){
+    if(root == NULL) return true;
     path+= to_string(root->val);
-     if(root->left == NULL && root->right == NULL){
-        ans.push_back(path);
-        
-    }
-    findpaths(root->left,path+"->",ans);
-   findpaths(root->right,path+"->",ans);
-   
-    return ;
-}
+    bool left = helper(root->left,ans,path+"->");
+    bool right = helper(root->right,ans,path+"->");
 
+    if(left && right) ans.push_back(path);
+    return false;
+}
     vector<string> binaryTreePaths(TreeNode* root) {
-       string path = "";
-       vector<string>ans;
-        findpaths(root,path,ans);
+        vector<string>ans;
+        string path;
+        helper(root,ans,path);
         return ans;
     }
 };
