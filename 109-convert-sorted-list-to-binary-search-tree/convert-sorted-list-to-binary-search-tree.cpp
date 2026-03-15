@@ -22,7 +22,6 @@
 class Solution {
 public:
 ListNode* findmid(ListNode* stnode,ListNode* endNode){
-    if(stnode == endNode) return NULL;
     ListNode* slow = stnode;
     ListNode* fast = stnode;
     while(fast!=endNode && fast->next != endNode){
@@ -32,9 +31,8 @@ ListNode* findmid(ListNode* stnode,ListNode* endNode){
     return slow;
 }
 TreeNode* BST(ListNode* stnode,ListNode* endNode){
-    if(stnode == NULL) return {};
+     if(stnode == endNode) return NULL;
     ListNode* midNode = findmid(stnode,endNode);
-    if(midNode == NULL) return NULL;
     TreeNode* root = new TreeNode(midNode->val);
     root->left = BST(stnode,midNode);
     root->right = BST(midNode->next,endNode);
