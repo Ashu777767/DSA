@@ -21,24 +21,44 @@
  */
 class Solution {
 public:
-ListNode* findmid(ListNode* stnode,ListNode* endNode){
-    ListNode* slow = stnode;
-    ListNode* fast = stnode;
-    while(fast!=endNode && fast->next != endNode){
-        slow = slow->next;
-        fast = fast->next->next;
-    }
-    return slow;
-}
-TreeNode* BST(ListNode* stnode,ListNode* endNode){
-     if(stnode == endNode) return NULL;
-    ListNode* midNode = findmid(stnode,endNode);
-    TreeNode* root = new TreeNode(midNode->val);
-    root->left = BST(stnode,midNode);
-    root->right = BST(midNode->next,endNode);
+
+ListNode* curr;
+
+TreeNode* build(int left,int right){
+
+    if(left>right)
+        return NULL;
+
+    int mid = (left+right)/2;
+
+    // build left subtree
+    TreeNode* leftChild = build(left,mid-1);
+
+    // current node becomes root
+    TreeNode* root = new TreeNode(curr->val);
+
+    root->left = leftChild;
+
+    curr = curr->next;
+
+    // build right subtree
+    root->right = build(mid+1,right);
+
     return root;
 }
-    TreeNode* sortedListToBST(ListNode* head) {
-        return BST(head,NULL);
+
+TreeNode* sortedListToBST(ListNode* head) {
+
+    int n=0;
+    ListNode* temp=head;
+
+    while(temp){
+        n++;
+        temp=temp->next;
     }
+
+    curr = head;
+
+    return build(0,n-1);
+}
 };
