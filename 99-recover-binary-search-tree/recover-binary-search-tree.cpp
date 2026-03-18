@@ -22,7 +22,7 @@ public:
             if(curr->left == NULL) {
 
                 // violation check
-                if(prev && curr->val < prev->val) {
+                if(curr->val < prev->val) {
                     if(!first) first = prev;
                     second = curr;
                 }
@@ -49,7 +49,7 @@ public:
                     pred->right = NULL;
 
                     // violation check again
-                    if(prev && curr->val < prev->val) {
+                    if(curr->val < prev->val) {
                         if(!first) first = prev;
                         second = curr;
                     }
