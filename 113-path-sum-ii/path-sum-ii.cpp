@@ -15,7 +15,7 @@ void hasPathSum(TreeNode* root,int targetSum,vector<vector<int>>& ans,vector<int
        if(root == NULL) return ;
 
         path.push_back(root->val);
-         if(targetSum == root->val && root->left == NULL && root->right == NULL)  {
+         if(targetSum-root->val ==0 && root->left == NULL && root->right == NULL)  {
             ans.push_back(path);
          }
          hasPathSum(root->left,targetSum-root->val,ans,path);
