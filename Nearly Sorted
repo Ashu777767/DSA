@@ -1,0 +1,20 @@
+class Solution {
+  public:
+    void nearlySorted(vector<int>& arr, int k) {
+        // code here
+        priority_queue<int,vector<int>,greater<int>>pq;
+        int idx = 0;
+        for(int val:arr){
+            pq.push(val);
+            if(pq.size()>k){
+                arr[idx++] = pq.top();
+                pq.pop();
+            }
+        }
+        while(!pq.empty()){
+            arr[idx++] = pq.top();
+            pq.pop();
+        }
+        
+    }
+};
