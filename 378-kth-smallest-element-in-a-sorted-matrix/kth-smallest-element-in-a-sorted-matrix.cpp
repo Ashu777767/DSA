@@ -1,41 +1,35 @@
 class Solution {
 public:
-    int countLessEqual(vector<vector<int>>& matrix, int mid) {
-    int n = matrix.size();
-    int row = n - 1;
-    int col = 0;
-    int count = 0;
-
-    while(row >= 0 && col < n) {
-        if(matrix[row][col] <= mid) {
-            count += (row + 1);
-            col++;
-        } else {
-            row--;
-        }
-    }
-
-    return count;
-}
-
-int kthSmallest(vector<vector<int>>& matrix, int k) {
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
     int n = matrix.size();
 
-    int low = matrix[0][0];
-    int high = matrix[n-1][n-1];
+    priority_queue<
+        pair<int, pair<int,int>>,
+        vector<pair<int, pair<int,int>>>,
+        greater<>
+    > pq;
 
-    while(low <= high) {
-        int mid = low + (high - low) / 2;
-
-        int count = countLessEqual(matrix, mid);
-
-        if(count < k) {
-            low = mid + 1;
-        } else {
-            high = mid - 1;
-        }
+    // Step 1: push first column
+    for(int i = 0; i < n; i++) {
+        pq.push({matrix[i][0], {i, 0}});
     }
 
-    return low;
+    // Step 2: process k elements
+    while(k--) {
+        auto top = pq.top();
+        pq.pop();
+
+        int val = top.first;
+        int r = top.second.first;
+        int c = top.second.second;
+
+        if(c + 1 < n) {
+            pq.push({matrix[r][c+1], {r, c+1}});
+        }
+
+        if(k == 0) return val;
+    }
+
+    return -1;
 }
 };
