@@ -25,16 +25,16 @@ struct cmp{
         }
          
         ListNode* dummy = new ListNode(0);
-        ListNode* head = dummy;
+        ListNode* tail = dummy;
         while(!minHeap.empty()){
             ListNode* temp =minHeap.top();
             minHeap.pop();
-            if(temp!=NULL && temp->next){
+            if(temp->next){
                 minHeap.push(temp->next);
             }
-            dummy->next = temp;
-            dummy = dummy->next;
+            tail->next = temp;
+            tail = tail->next;
         }
-        return head->next;
+        return dummy->next;
     }
 };
