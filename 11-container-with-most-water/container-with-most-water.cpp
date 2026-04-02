@@ -8,7 +8,7 @@ public:
         int  maxvalue = INT_MIN;
         while(left<right)
         {
-            h = min(height[left],height[right]);
+            h = min(height[left],height[right]); //0(N)
             w = right-left;
             int area = h*w;
             maxvalue = max(maxvalue,area);
