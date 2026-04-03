@@ -6,8 +6,8 @@ bool isCycleDFS(int src, vector<bool>& vis, vector<bool>& recPath, vector<vector
     recPath[src] = true;
 
     for(int i =0;i<adj.size();i++) {
-          int v = adj[i][1];
-          int u = adj[i][0];
+          int v = adj[i][0];//put any value cuz in main function we are checking from every staring point
+          int u = adj[i][1];
         // Case 1: Not visited → go deeper
         if(u == src){
         if(!vis[v]) {
