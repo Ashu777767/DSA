@@ -1,30 +1,25 @@
 class Solution {
 public:
     bool closeStrings(string word1, string word2) {
-        if (word1.size() != word2.size())
-            return false;
-        unordered_map<char, int> mp;
-        unordered_map<char, int> mp1;
-        for (auto ch : word2) {
-            mp1[ch]++;
-        }
-        for (auto ch : word1) {
-            mp[ch]++;
-        }
-        for (auto [ch, f] : mp) {
-            if (mp1.find(ch) == mp1.end())
+        if(word1.size() != word2.size()) return false;
+
+        vector<int> freq1(26, 0), freq2(26, 0);
+
+        // Count frequencies
+        for(char ch : word1) freq1[ch - 'a']++;
+        for(char ch : word2) freq2[ch - 'a']++;
+
+        // ✅ Condition 1: Same character presence
+        for(int i = 0; i < 26; i++){
+            if((freq1[i] == 0 && freq2[i] != 0) ||
+               (freq1[i] != 0 && freq2[i] == 0))
                 return false;
         }
-        vector<int> v1, v2;
 
-        for (auto [ch, freq] : mp)
-            v1.push_back(freq);
-        for (auto [ch, freq] : mp1)
-            v2.push_back(freq);
+        // ✅ Condition 2: Same frequency distribution
+        sort(freq1.begin(), freq1.end());
+        sort(freq2.begin(), freq2.end());
 
-        sort(v1.begin(), v1.end());
-        sort(v2.begin(), v2.end());
-
-        return v1 == v2;
+        return freq1 == freq2;
     }
 };
