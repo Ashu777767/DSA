@@ -3,24 +3,26 @@ public:
     int equalPairs(vector<vector<int>>& grid) {
         int n = grid.size();
 
-        map<vector<int>, int> mp;
+        unordered_map<string, int> mp;
 
         // store rows
         for (auto row : grid) {
-            mp[row]++;
+            string s = "";
+            for (int x : row) {
+                s += to_string(x) + "#";
+            }
+            mp[s]++;
         }
 
         int count = 0;
 
         // check columns
         for (int j = 0; j < n; j++) {
-            vector<int> col;
-
+            string s = "";
             for (int i = 0; i < n; i++) {
-                col.push_back(grid[i][j]);
+                s += to_string(grid[i][j]) + "#";
             }
-
-            count += mp[col];
+            count += mp[s];
         }
 
         return count;
