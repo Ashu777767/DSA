@@ -1,30 +1,36 @@
 class Solution {
 public:
-    string decodeString(const string& s, int& i) {
-        string res;
-        
-        while (i < s.length() && s[i] != ']') {
-            if (!isdigit(s[i]))
-                res += s[i++];
-            else {
-                int n = 0;
-                while (i < s.length() && isdigit(s[i]))
-                    n = n * 10 + s[i++] - '0';
-                    
-                i++; // '['
-                string t = decodeString(s, i);
-                i++; // ']'
-                
-                while (n-- > 0)
-                    res += t;
+    string decodeString(string s) {
+        stack<int> numStack;
+        stack<string> strStack;
+
+        string current = "";
+        int num = 0;
+
+        for (char ch : s) {
+            if (isdigit(ch)) {
+                num = num * 10 + (ch - '0'); // handle multi-digit
+            } else if (ch == '[') {
+                numStack.push(num);
+                strStack.push(current);
+                num = 0;
+                current = "";
+            } else if (ch == ']') {
+                string temp = current;
+                int count = numStack.top();
+                numStack.pop();
+
+                current = strStack.top();
+                strStack.pop();
+
+                for (int i = 0; i < count; i++) {
+                    current += temp;
+                }
+            } else {
+                current += ch;
             }
         }
-        
-        return res;
-    }
 
-    string decodeString(string s) {
-        int i = 0;
-        return decodeString(s, i);
+        return current;
     }
 };
