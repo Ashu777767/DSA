@@ -10,7 +10,7 @@ public:
             if (nums[i] < leftMax) {
                 // Must include i in left → extend
                 pos = i;
-                leftMax = maxSeen; // update leftMax to current maxSeen
+            leftMax = maxSeen; // update leftMax to current maxSeen
             } 
             else maxSeen = max(maxSeen, nums[i]);  
         }
