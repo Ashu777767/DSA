@@ -4,8 +4,8 @@ public:
     RecentCounter() {}
     int ping(int t) {
         q.push(t);
-        int strange = t - 3000;
-        while (q.front() < strange) {
+        int lowerbound = t - 3000;
+        while (q.front() < lowerbound) {
             q.pop();
         }
         return q.size();
