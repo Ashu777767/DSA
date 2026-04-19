@@ -8,6 +8,14 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+ 
+static const int fastIO = []() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    return 0;
+}();
+
+
 class Solution {
 public:
     int pairSum(ListNode* head) {
