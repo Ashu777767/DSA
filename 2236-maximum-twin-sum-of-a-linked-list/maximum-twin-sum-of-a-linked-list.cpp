@@ -8,43 +8,40 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
- 
-static const int fastIO = []() {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    return 0;
-}();
-
-
 class Solution {
 public:
     int pairSum(ListNode* head) {
+        // Step 1: Find middle
         ListNode* slow = head;
         ListNode* fast = head;
-        while (fast->next && fast->next->next) {
+        
+        while (fast && fast->next) {
             slow = slow->next;
             fast = fast->next->next;
         }
-        // reverse the second half
-        ListNode* sechead = slow->next;
-        slow->next = NULL;
+
+        // Step 2: Reverse second half
         ListNode* prev = NULL;
-        ListNode* curr = sechead;
-        ListNode* Next = NULL;
+        ListNode* curr = slow;
+
         while (curr) {
-            Next = curr->next;
+            ListNode* nextNode = curr->next;
             curr->next = prev;
-            prev = curr; // prev has the final after mid head;
-            curr = Next;
+            prev = curr;
+            curr = nextNode;
         }
-        ListNode* tailHead = prev;
-        int maximum = 0;
-        while (head) {
-            int sum = head->val + tailHead->val;
-            maximum = sum > maximum ? sum : maximum;
-            head = head->next;
-            tailHead = tailHead->next;
+
+        // Step 3: Calculate twin sum
+        int maxi = 0;
+        ListNode* first = head;
+        ListNode* second = prev;
+
+        while (second) {
+            maxi = max(maxi, first->val + second->val);
+            first = first->next;
+            second = second->next;
         }
-        return maximum;
+
+        return maxi;
     }
 };
