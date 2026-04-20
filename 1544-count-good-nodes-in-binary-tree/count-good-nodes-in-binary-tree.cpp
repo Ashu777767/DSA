@@ -12,22 +12,21 @@
  */
 class Solution {
 public:
-    void findgoodnodes(TreeNode* root, int& count, int max) {
-        if (!root) {
-            return;
-        }
-        if (root->val >= max) {
-            count++;
-            max = root->val;
-        } 
-            findgoodnodes(root->left, count, max);
-            findgoodnodes(root->right, count, max);
-        
-    }
-    int goodNodes(TreeNode* root) {
+    int goodNodes(TreeNode* root) { return dfs(root, root->val); }
+
+private:
+    int dfs(TreeNode* node, int maxSoFar) {
+        if (!node)
+            return 0; // base case
+        // check if current node is good
         int count = 0;
-        int max = root->val;
-        findgoodnodes(root, count, max);
+        if (node->val >= maxSoFar)
+            count = 1;
+        // update currMax for children
+        maxSoFar = std::max(maxSoFar, node->val);
+        // recurse
+        count += dfs(node->left, maxSoFar);
+        count += dfs(node->right, maxSoFar);
         return count;
     }
 };
