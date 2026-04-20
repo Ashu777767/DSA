@@ -18,12 +18,11 @@ public:
         }
         if (root->val >= max) {
             count++;
-            findgoodnodes(root->left, count, root->val);
-            findgoodnodes(root->right, count, root->val);
-        } else {
+            max = root->val;
+        } 
             findgoodnodes(root->left, count, max);
             findgoodnodes(root->right, count, max);
-        }
+        
     }
     int goodNodes(TreeNode* root) {
         int count = 0;
