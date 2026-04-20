@@ -12,31 +12,23 @@
  */
 class Solution {
 public:
-    int findmaxpath(TreeNode* root, char ch, int vis) {
-        if (!root) {
-            return vis;
-        }
-        vis++;
-        int zigzaglen = ch == 'L' ? findmaxpath(root->right, 'R', vis)
-                                  : findmaxpath(root->left, 'L', vis);
+    int maxi = 0;
 
-        return zigzaglen;
+    void dfs(TreeNode* node, int leftLen, int rightLen) {
+        if (!node) return;
+
+        // update answer
+        maxi = max(maxi, max(leftLen, rightLen));
+
+        // go left → last move becomes LEFT
+        dfs(node->left, 0, leftLen + 1);
+
+        // go right → last move becomes RIGHT
+        dfs(node->right, rightLen + 1, 0);
     }
-    int helper2(TreeNode* root) {
-        int vis = 0;
-        int leftmax = findmaxpath(root->left, 'L', vis);
-        int rightmax = findmaxpath(root->right, 'R', vis);
-        return max(leftmax, rightmax);
+
+    int longestZigZag(TreeNode* root) {
+        dfs(root, 0, 0);
+        return maxi;
     }
-    int helper(TreeNode* root) {
-        if (!root) {
-            return 0;
-        }
-        int zigzag = helper2(root);
-        int leftnode = helper(root->left);
-        int rightnode = helper(root->right);
-        int length = max(leftnode, rightnode);
-        return max(zigzag, length);
-    }
-    int longestZigZag(TreeNode* root) { return helper(root); }
 };
