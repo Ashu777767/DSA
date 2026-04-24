@@ -1,23 +1,17 @@
 class Solution {
 public:
     int furthestDistanceFromOrigin(string moves) {
-        int left = 0;
-        int right = 0;
+        int L = 0, R = 0, blank = 0;
+
         for (char ch : moves) {
             if (ch == 'L')
-                left++;
-            if (ch == 'R')
-                right++;
-        }
-        char maxMove = left >= right ? 'L' : 'R';
-        int furthest = 0;
-        for (char ch : moves) {
-            char check = ch == '_' ? maxMove : ch;
-            if (check == 'L')
-                furthest += -1;
+                L++;
+            else if (ch == 'R')
+                R++;
             else
-                furthest += 1;
+                blank++;
         }
-        return abs(furthest);
+
+        return abs(L - R) + blank;
     }
 };
