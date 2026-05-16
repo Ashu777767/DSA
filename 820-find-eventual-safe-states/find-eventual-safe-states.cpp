@@ -7,9 +7,9 @@ bool safeNode(int src,vector<bool> &vis,vector<bool>&isSafe,vector<vector<int>>&
             if(safeNode(node,vis,isSafe,graph,true)){
                 isSafe[node] = true;
             }else{
-                flag = false;
+                flag = false; //if one adjcent node found non safe the the vertex is not valid
             }
-        }else if(!isSafe[node]){
+        }else if(!isSafe[node]){ //if one adjcent node is vis and not safe means not valid vertex for answer
             flag = false;
 
         }
@@ -20,7 +20,7 @@ bool safeNode(int src,vector<bool> &vis,vector<bool>&isSafe,vector<vector<int>>&
         int n = graph.size();
         vector<bool>isSafe(n,false);
         vector<bool>vis(n,false);
-        for(int i = 0;i<n;i++){  //marking terminal nodes
+        for(int i = 0;i<n;i++){  //marking terminal nodes at first
             if(graph[i].size() == 0){
                 isSafe[i] = true;
                 vis[i] = true;
