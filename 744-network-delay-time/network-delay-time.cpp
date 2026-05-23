@@ -8,10 +8,11 @@ public:
                 {e[1], e[2]}); // transforming to proper graphs arrangement
         }
         priority_queue<pair<int, int>, vector<pair<int, int>>,
-                       greater<pair<int, int>>> // to pick shortest distance
-                                                // edge first so pq
-                                                    pq; // min heap
-        vector<int> dist(n + 1, INT_MAX);               // intial dist
+                       greater<pair<int, int>>>
+            pq;                           // to pick shortest distance
+                                          // edge first so pq
+                                          // min heap
+        vector<int> dist(n + 1, INT_MAX); // intial dist
         vector<int> vis(n + 1, 0);
         pq.push({0, k}); // dist,node
         // edge initalize source to 0 dist
