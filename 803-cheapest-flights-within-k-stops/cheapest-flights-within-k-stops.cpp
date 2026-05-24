@@ -34,7 +34,7 @@ public:
                 int price   = edge.second;
 
                 if(cost + price < dist[adjNode]
-                   && stops <= k){
+                   ){
 
                     dist[adjNode] = cost + price;
 
