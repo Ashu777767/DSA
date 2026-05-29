@@ -20,21 +20,24 @@ public:
             int row = pq.top().second.first;
             int col = pq.top().second.second;
             pq.pop();
-            if (vis[row][col]) continue;
+            if (vis[row][col])
+                continue; // to handle multiple vis
             vis[row][col] = true;
-            if(row == r-1 && col == c-1) return maxeffort;
-            for(auto & dir:directions){
+            if (row == r - 1 && col == c - 1)
+                return maxeffort;
+            for (auto& dir : directions) {
                 int nrow = row + dir.first;
-                int ncol = col+dir.second;
-                if(nrow<0 || ncol<0 || nrow>=r || ncol>=c || vis[nrow][ncol]) continue;
-                int diff = abs(heights[nrow][ncol]-heights[row][col]);
-                if(diff>maxeffort){
-                    pq.push({diff,{nrow,ncol}});
-                }else{
-                    pq.push({maxeffort,{nrow,ncol}});
+                int ncol = col + dir.second;
+                if (nrow < 0 || ncol < 0 || nrow >= r || ncol >= c ||
+                    vis[nrow][ncol])
+                    continue;
+                int diff = abs(heights[nrow][ncol] - heights[row][col]);
+                if (diff > maxeffort) {
+                    pq.push({diff, {nrow, ncol}});
+                } else {
+                    pq.push({maxeffort, {nrow, ncol}});
                 }
             }
-            
         }
 
         return 0;
