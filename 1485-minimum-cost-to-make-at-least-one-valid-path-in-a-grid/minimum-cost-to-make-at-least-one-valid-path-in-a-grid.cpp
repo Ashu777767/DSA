@@ -1,11 +1,6 @@
 class Solution {
 public:
- bool isvalid(int row ,int col,int r,int c){
-     if(row<0 || col<0 || row>=r || col>=c){
-         return false;
-     }
-     return true;
- }
+ 
     int minCost(vector<vector<int>>& grid) {
         int r = grid.size();
         int c = grid[0].size();
@@ -38,19 +33,19 @@ public:
             int ncol = col-dir.second;
             if(nrow<0 || ncol<0 || nrow>=r || ncol>=c) continue;
             int pathdir = grid[row][col];
-            if(!flag && pathdir == 1 && isvalid(row,col+1,r,c) && (row == nrow && col+1 == ncol)){
+            if(!flag && pathdir == 1  && (row == nrow && col+1 == ncol)){
                  pq.push({cost,{row,col+1}});
                  flag = true;
                  continue;
-            }else if(!flag && pathdir == 2 && isvalid(row,col-1,r,c) && (row == nrow && col-1 == ncol)){
+            }else if(!flag && pathdir == 2  && (row == nrow && col-1 == ncol)){
                  pq.push({cost,{row,col-1}});
                  flag = true;
                  continue;
-            }else if(!flag && pathdir == 3 && isvalid(row+1,col,r,c) && (row+1 == nrow && col == ncol)){
+            }else if(!flag && pathdir == 3 && (row+1 == nrow && col == ncol)){
                  pq.push({cost,{row+1,col}});
                  flag = true;
                  continue;
-            }else if(!flag && pathdir == 4 && isvalid(row-1,col,r,c) && (row-1 == nrow && col == ncol)){
+            }else if(!flag && pathdir == 4  && (row-1 == nrow && col == ncol)){
                  pq.push({cost,{row-1,col}});
                  flag = true;
                  continue;
