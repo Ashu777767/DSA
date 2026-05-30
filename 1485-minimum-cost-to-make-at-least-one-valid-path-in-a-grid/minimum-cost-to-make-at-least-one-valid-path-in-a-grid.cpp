@@ -29,8 +29,8 @@ public:
            }
            bool flag = false;
            for(auto &dir:direction){
-            int nrow = row-dir.first;
-            int ncol = col-dir.second;
+            int nrow = row+dir.first;
+            int ncol = col+dir.second;
             if(nrow<0 || ncol<0 || nrow>=r || ncol>=c) continue;
             int pathdir = grid[row][col];
             if(!flag && pathdir == 1  && (row == nrow && col+1 == ncol)){
