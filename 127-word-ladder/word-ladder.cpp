@@ -3,46 +3,42 @@ public:
     int ladderLength(string beginWord, string endWord,
                      vector<string>& wordList) {
 
-        if (find(wordList.begin(), wordList.end(), endWord) == wordList.end())
+        unordered_set<string> st(wordList.begin(), wordList.end());
+
+        if(st.find(endWord) == st.end())
             return 0;
 
-        int esize = endWord.size();
-        int size = wordList.size();
-
-        unordered_set<string> vis;
-
-        queue<pair<string, int>> q;
-
+        queue<pair<string,int>> q;
         q.push({beginWord, 1});
-        vis.insert(beginWord);
 
-        while (!q.empty()) {
+        st.erase(beginWord);
+
+        while(!q.empty()) {
 
             string curr = q.front().first;
             int transformation = q.front().second;
             q.pop();
 
-            if (curr == endWord)
+            if(curr == endWord)
                 return transformation;
 
-            for (int i = 0; i < size; i++) {
+            for(int i = 0; i < curr.size(); i++) {
 
-                string word = wordList[i];
+                char original = curr[i];
 
-                if (vis.count(word))
-                    continue;
+                for(char ch = 'a'; ch <= 'z'; ch++) {
 
-                int count = 0;
+                    curr[i] = ch;
 
-                for (int index = 0; index < esize; index++) {
-                    if (word[index] != curr[index])
-                        count++;
+                    if(st.find(curr) != st.end()) {
+
+                        q.push({curr, transformation + 1});
+
+                        st.erase(curr); // mark visited
+                    }
                 }
 
-                if (count == 1) {
-                    q.push({word, transformation + 1});
-                    vis.insert(word);
-                }
+                curr[i] = original;
             }
         }
 
