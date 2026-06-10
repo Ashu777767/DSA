@@ -9,7 +9,7 @@ public:
         // x>=1 && x<=n : to check if x is in range[1, n]
         // x != i+1 : skip if at index i correct element is present.
         // nums[x-1]!=x: skip if at index x-1 correct element is present
-            while(x>=1 && x<=n  && nums[x-1]!=x){
+            while(x>=1 && x<=n && x!=i+1 && nums[x-1]!=x){
                 swap(nums[x-1],nums[i]);
                 x=nums[i];
             }
