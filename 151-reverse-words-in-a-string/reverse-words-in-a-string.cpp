@@ -1,37 +1,26 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        int i = 0, j = 0;
-   while (i < s.size()) {
-    // skip spaces
-    while (i < s.size() && s[i] == ' ') i++;
+        stringstream ss(s);
+    string word;
+    vector<string> words;
 
-    // if not the first word, add one space before word
-    if (j > 0 && i < s.size()) {
-        s[j++] = ' ';
+    // Step 1: Extract words, automatically skipping extra spaces
+    while (ss >> word) {
+        words.push_back(word);
     }
 
-    // copy characters of the word
-    while (i < s.size() && s[i] != ' ') {
-        s[j++] = s[i++];
+    // Step 2: Reverse the list of words
+    reverse(words.begin(), words.end());
+
+    // Step 3: Join the words into a single string
+    string ans = "";
+    for (int i = 0; i < words.size(); i++) {
+        if (i > 0)  ans+=" ";  // Add space between words
+        ans+=words[i];
     }
-}
-s.resize(j);
 
-        reverse(s.begin(),s.end());
-        int stw = 0;
-        for(int enw = 0;enw<s.size();enw++){
-            if(!isalnum(s[enw])){
-            reverse(s.begin()+stw,s.begin()+enw);
-            stw = enw+1;
-            }
-            
-        }
-        int last = s.size() -1;
-        while(stw<last){
-           swap(s[stw++],s[last--]);
-        }
+    return ans;
 
-        return s;
     }
 };
