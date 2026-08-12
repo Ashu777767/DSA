@@ -1,26 +1,48 @@
 class Solution {
 public:
-  void findNumber(unordered_map<char,string>dail,vector<string>& combination,string substring,int index,int digitsize,string digits){
-    if(index == digitsize){
-        combination.push_back(substring);
-        return ;
-    }
-    for(int i = 0;i<dail[digits[index]].size();i++){
-        string word = dail[digits[index]];
-        substring+=word[i];
-         findNumber(dail,combination,substring,index+1,digitsize,digits);
-         substring.pop_back();
-    }
-  }
-
     vector<string> letterCombinations(string digits) {
-        unordered_map<char,string>dail = {{'2',"abc"},{'3',"def"},{'4',"ghi"},{'5',"jkl"},{'6',"mno"},{'7',"pqrs"},{'8',"tuv"},{'9',"wxyz"}};
-       vector<string>combination;
-       string substring = "";
-       int digitsize = digits.size();
-        findNumber(dail,combination,substring,0,digitsize,digits);
-        return combination;
 
-    
+        if (digits.empty())
+            return {};
+
+        unordered_map<char, string> dial = {
+            {'2', "abc"},
+            {'3', "def"},
+            {'4', "ghi"},
+            {'5', "jkl"},
+            {'6', "mno"},
+            {'7', "pqrs"},
+            {'8', "tuv"},
+            {'9', "wxyz"}
+        };
+
+        queue<string> q;
+        q.push("");
+
+        for (char digit : digits) {
+
+            string letters = dial[digit];
+
+            int size = q.size();
+
+            while (size--) {
+
+                string current = q.front();
+                q.pop();
+
+                for (char ch : letters) {
+                    q.push(current + ch);
+                }
+            }
+        }
+
+        vector<string> result;
+
+        while (!q.empty()) {
+            result.push_back(q.front());
+            q.pop();
+        }
+
+        return result;
     }
 };
