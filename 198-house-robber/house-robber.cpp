@@ -1,22 +1,19 @@
 class Solution {
 public:
-  int solve(int n,vector<int>&dp,vector<int>& nums){
-    if(n == 0){
-        return nums[0];
-    }
-    if(n == 1){
-        return max(nums[0],nums[1]);
-    }
-    if(dp[n] != -1){
-        return dp[n];
-    }
-    dp[n] = max(solve(n-1,dp,nums),solve(n-2,dp,nums)+nums[n]);
-    return dp[n];
-  }
-
     int rob(vector<int>& nums) {
         int n = nums.size();
-        vector<int>dp(n,-1);
-        return solve(n-1,dp,nums);
+        if(n == 1) return nums[0];
+        if(n == 2) return max(nums[0],nums[1]);
+        int prev1 = nums[0];
+        int prev2 = max(nums[0],nums[1]);
+        int i = 2;
+        
+        while(i<n){
+            int currLoot = max(prev2,prev1+nums[i]);
+            prev1 = prev2;
+            prev2 = currLoot;
+            i++;
+        }
+        return prev2;
     }
 };
