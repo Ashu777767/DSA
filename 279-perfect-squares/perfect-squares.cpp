@@ -1,16 +1,32 @@
 class Solution {
 public:
-    int numSquares(int n) {
-        vector<int>dp(n+1,INT_MAX);
-        dp[0] = 0;
-        for(int i = 1;i<=n;i++){
-            for(int j = 1;j*j<=i;j++){ //gives valid square under n
-               int sq = j*j;
-               dp[i] = min(dp[i],dp[i-sq]+1); // i-sq defines let sq be the last sqaure of required n
-                                              // for 13 = last is 4 + remaining will be(13-4) = dp[9]
-                                              // +1 is for the last value count that we conisdered
-            }
+    int solve(int n, vector<int>& dp) {
+
+        // Base case
+        if (n == 0)
+            return 0;
+
+        // Already calculated
+        if (dp[n] != -1)
+            return dp[n];
+
+        int ans = INT_MAX;
+
+        // Try every perfect square <= n
+        for (int j = 1; j * j <= n; j++) {
+
+            int sq = j * j;
+
+            ans = min(ans, solve(n - sq, dp) + 1);
         }
-        return dp[n];
+
+        return dp[n] = ans;
+    }
+
+    int numSquares(int n) {
+
+        vector<int> dp(n + 1, -1);
+
+        return solve(n, dp);
     }
 };
